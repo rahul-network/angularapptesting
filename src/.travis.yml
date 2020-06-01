@@ -3,7 +3,7 @@ node_js:
 - 8.11.3
 branches:
   only:
-  - dev
+  - master
 # only runs on 'dev' because it's a deployment build without testing
 install:
 - npm install
@@ -12,3 +12,9 @@ script:
 # NOTE: this should change once we have all tests working, but failing tests will prevent the deploy step from running. This is a placeholder until we have a test script to run.
 before_deploy:
 - npm run build --prod
+- git add build/*
+- git commit -n -m "[AWS] DEV DEPLOY - $TRAVIS_COMMIT"
+env:
+  global:
+  - S3_BUCKET_LABEL="[AWS] DEV DEPLOY - $TRAVIS_COMMIT"
+  - S3_BUCKET_DESCRIPTION="[TRAVIS] $TRAVIS_BRANCH | $TRAVIS_COMMIT_MESSAGE"
