@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- 8.11.3
+branches:
+  only:
+  - dev
+# only runs on 'dev' because it's a deployment build without testing
+install:
+- npm install
+script:
+- echo "Deploying"
+# NOTE: this should change once we have all tests working, but failing tests will prevent the deploy step from running. This is a placeholder until we have a test script to run.
+before_deploy:
+- npm run build --prod
